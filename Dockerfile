@@ -1,4 +1,7 @@
-FROM tomcat:8.0
-RUN cp -a **/*.war /usr/local/tomcat/webapps/
-EXPOSE 8080
-CMD ["catalina.sh", "run"]
+FROM node:7
+WORKDIR /app
+COPY package.json /app
+RUN npm install
+COPY . /app
+CMD node index.js
+EXPOSE 8085
