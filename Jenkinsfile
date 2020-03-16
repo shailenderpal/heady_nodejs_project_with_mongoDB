@@ -3,21 +3,21 @@ pipeline {
     stages {
         stage('Build Application') {
             steps {
-                sh 'mvn -f java-tomcat-sample/pom.xml clean package'
+               sh 'npm install'
             }
             post {
                 success {
                     echo "Now Archiving the Artifacts...."
-                    archiveArtifacts artifacts: '**/*.war'
+                    archiveArtifacts artifacts: '**/*.json'
                 }
             }
         }
 
-        stage('Create Tomcat Docker Image'){
+        stage('Create nginx Docker Image'){
             steps {
                 sh "pwd"
                 sh "ls -a"
-                sh "docker build ./java-tomcat-sample-docker -t tomcatsamplewebapp:${env.BUILD_ID}"
+                sh "docker build . -t nginxsamplewebapp:${env.BUILD_ID}"
             }
         }
 
